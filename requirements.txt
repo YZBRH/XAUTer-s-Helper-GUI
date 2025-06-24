@@ -1,0 +1,4 @@
+pyside6~=6.8.1
+requests~=2.31.0
+qt_material
+ddddocr~=1.4.11
