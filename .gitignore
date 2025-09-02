@@ -1,7 +1,7 @@
 .idea/
 __pycache__/
-log/
-output/
-resources/verification_code/
+log/*
+output/*
+resources/verification_code/*
 config.py
 test.py
