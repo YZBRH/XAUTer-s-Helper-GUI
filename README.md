@@ -46,34 +46,9 @@ python main.py
 
 ​	等待启动即可
 
-## 项目结构说明
-
-│
-
-├─core				     核心逻辑部分，包含各种功能函数
-
-│  └─plugins 
-
-│		└─jwxt
-
-├─data					  持久化保存的系统配置
-
-├─log						程序运行日志
-
-├─output				 程序输出结果
-
-├─resources			资源文件
-│  ├─images
-
-│  └─verification_code
-
-└─ui						  ui相关配置代码
-
-
-
 ## 已知部分问题及解决方法
 
-
+​	NULL
 
 ## 更新记录
 
