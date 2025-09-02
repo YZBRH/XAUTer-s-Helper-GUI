@@ -22,8 +22,8 @@ def add_data(course_data: dict, key: str, value: str) -> dict:
     """
     if course_data[key] == "":
         course_data[key] = value
-    elif value not in course_data[key].split(','):
-        course_data[key] += "," + value
+    elif value not in course_data[key].split('~'):
+        course_data[key] += "~" + value
     return course_data
 
 
@@ -87,27 +87,30 @@ class jwxtSchedule:
                 }
 
                 div = td.find_all("div")
+                # 数量小于5，可认为没有课程
                 if len(div) <= 5:
                     continue
 
-                res_data = div[5].find_all("font")
-                if len(res_data) == 0:
-                    # 如果不在第六个位置，则在第十个位置尝试寻找
-                    res_data = div[9].find_all("font")
+                # 查找有效数据
+                res_data = []
+                for div_data in div[1:]:
+                    res_data = div_data.find_all("font")
+                    if res_data:
+                        break
 
-                # if len(data) > 0:
-                #     single_course = self.format_course_data(single_course, data, 0)
-                # if len(data) > 11:
-                #     # 如果在第十个位置后仍有数据，需要追加
-                #     append_couser = self.format_course_data(single_course, data, 10)
-                #     single_course = self.append_course(single_course, append_couser)
-
+                # 数据处理放入字典
                 single_course = self.format_course_data(single_course, res_data)
                 course_data.append(single_course)
 
         return course_data
 
-    def format_course_data(self, single_course_ori: dict, res_data: bs4.element.ResultSet):
+    def format_course_data(self, single_course_ori: dict, res_data: bs4.element.ResultSet) -> dict:
+        """
+        格式化处理课程数据
+        :param single_course_ori: 源模板字典
+        :param res_data: 数据参数
+        :return: 处理后的字典
+        """
         course_data = copy.deepcopy(single_course_ori)
 
         for font in res_data:
@@ -185,7 +188,7 @@ if __name__ == "__main__":
         exit(0)
 
     jwxt_course = jwxtSchedule()
-    data = jwxt_course.get_course(jwxt_user.get_session(), "2024-2025-1")
+    data = jwxt_course.get_course(jwxt_user.get_session(), "2025-2026-1")
     print(data)
 
 
